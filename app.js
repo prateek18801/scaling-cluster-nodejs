@@ -8,7 +8,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.status(200).send(`process: ${process.pid}`);
+    for(let i=0;i<1e8;i++) {
+        // intentional delay
+    }
+    res.send(`response from: ${process.pid}`);
+});
+
+app.get('/kill-process', (req, res) => {
+    res.send(`process: ${process.pid} died`);
+    process.exit(0);
 });
 
 if (cluster.isPrimary) {
