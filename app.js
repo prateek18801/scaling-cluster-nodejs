@@ -13,13 +13,24 @@ app.get('/', (req, res) => {
 
 if (cluster.isPrimary) {
     console.log(`master ${process.pid} initialising cluster`);
-
+    
     for (let i = 0; i < os.cpus().length; i++) {
         cluster.fork();
     }
 
+    cluster.on('exit', (worker, code, signal) => {
+        if (signal) {
+            console.log(`worker ${worker.process.pid} killed by signal: ${signal}`);
+        } else if (code !== 0) {
+            console.log(`worker ${worker.process.pid} exited with error code: ${code}`);
+        } else {
+            console.log(`worker ${worker.process.pid} died`);
+        }
+        cluster.fork();
+    });
+
 } else {
-    app.listen(3000, () => {
-        console.log(`worker ${process.pid} started on port 3000`);
+    app.listen(process.env.PORT, () => {
+        console.log(`worker ${process.pid} started on port ${process.env.PORT}`);
     });
 }
