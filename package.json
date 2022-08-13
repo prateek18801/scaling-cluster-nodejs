@@ -1,0 +1,22 @@
+{
+  "name": "self-scaling-cluster",
+  "version": "1.0.0",
+  "description": "create a self scaling cluster for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "cluster",
+    "spawn",
+    "scaling",
+    "child-process",
+    "master"
+  ],
+  "author": "prateek",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

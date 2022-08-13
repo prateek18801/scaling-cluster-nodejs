@@ -1,0 +1,14 @@
+const express = require('express');
+
+const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.get('/', (req, res) =>{
+    res.status(200).send(`process: ${process.pid}`);
+});
+
+app.listen(3000, () => {
+    console.log(`process ${process.pid} running on 0.0.0.0:3000`);
+});
